@@ -3,7 +3,7 @@
 
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-
+import {signIn} from "next-auth/react"
 
 
 const Login = () => {
@@ -26,10 +26,22 @@ const Login = () => {
         }
 
         console.log(info)
-
+        
         try {
             setPending(true)
+            
+            const res = await signIn('credentials',{
+                email: info.email,
+                password: info.password,
+                redirect: false
+            })
 
+            if(res.error){
+                setError("Invalid Credentials")
+                setPending(false)
+                return
+            }
+            router.replace('/')
 
         } catch (error) {
             setPending(false)
