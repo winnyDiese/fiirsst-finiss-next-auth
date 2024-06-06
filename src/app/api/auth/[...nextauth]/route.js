@@ -29,14 +29,26 @@ export const authOptions = {
             async authorize(credentials){
                 try {
                     const user = await login(credentials)
-                    console.log("This is the user ",user)
+                    // console.log("This is the user ",user)
+                    return user
                 } catch (error) {
-                    console.log("Error = ",error)
+                    // console.log("Error = ",error)
+                    throw new Error("Failed to login")
                     return null
                 }
             }
         })
-    ]
+    ],
+    callbacks:{
+        async jwt({token,user}){
+            if(user){
+                token.username = user.username
+                token.email = user.email
+                token.id = user.id
+            }
+            return token
+        }
+    }
 }
 
 const handler = NextAuth(authOptions)
