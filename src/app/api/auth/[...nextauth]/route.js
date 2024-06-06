@@ -1,9 +1,15 @@
 import NextAuth from "next-auth/next"
 import CredentialsProvider from "next-auth/providers/credentials"
+import { connectDb } from "../../../../../utils/connect"
+import User from "../../../../../models/userModel"
 
 async function login(credentials){
     try {
-        
+        connectDb()
+        const user = await User.findOne({email:credentials.email})
+        if(!user) throw new Error("Wrong Credentials")
+
+        const isCorrect = await bcrypt.compare(credentails.password, user.password)
     } catch (error) {
         
     }
