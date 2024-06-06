@@ -17,3 +17,6 @@ const userSchema = mongoose.Schema({
         required: [true, "Must provide a password"]
     },
 },{timestamps:true})
+
+const User = mongoose.models.User || mongoose.model('User',userSchema)
+export default User
