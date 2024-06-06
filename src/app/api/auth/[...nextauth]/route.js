@@ -1,4 +1,13 @@
 import NextAuth from "next-auth/next"
+import CredentialsProvider from "next-auth/providers/credentials"
+
+async function login(credentials){
+    try {
+        
+    } catch (error) {
+        
+    }
+}
 
 export const authOptions = {
     pages:{
@@ -10,7 +19,8 @@ export const authOptions = {
             credentials:{},
             async authorize(credentials){
                 try {
-                    console.log({credentials})
+                    const user = await login(credentials)
+                    console.log("This is the user ",user)
                 } catch (error) {
                     console.log("Error = ",error)
                     return null
