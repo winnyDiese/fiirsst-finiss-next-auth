@@ -3,17 +3,21 @@ import { connectDb } from "../../../../utils/connect";
 import bcrypt from "bcrypt"
 import User from "../../../../models/userModel";
 
+export async function GET(){
+    const users = await User.find()
+    return NextResponse.json({message:"Username or email already exist !",users})
+}
+
 export async function POST(req){
     try {
         await connectDb()
-        
+
         const {username, email, password} = await req.json()
         console.log({username, email, password})
         const exists = await User.findOne({$or:[{email},{username}]})
 
         if(exists){
-            return NextResponse.json({message:"Username or email already exist !"})
-            {status:500}
+            return NextResponse.json({message:"Username or email already exist !"},{status:500})
         }
         
         const hashedPassword = await bcrypt.hash(password,10)

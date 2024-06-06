@@ -48,7 +48,7 @@ const Register = () => {
 
     // console.log({info.password})
     console.log({info})
-    console.log(info.password)
+    console.log(info.username)
 
     return (
         <div className='p-6'>
