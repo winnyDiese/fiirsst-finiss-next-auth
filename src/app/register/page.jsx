@@ -1,6 +1,7 @@
 
 "use client"
 
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 const Register = () => {
@@ -8,6 +9,8 @@ const Register = () => {
     const [error,setError] = useState('')
     const [pending,setPending] = useState(false)
 
+    const router = useRouter()
+    
     const handleInput = e=>{
         setInfo(prev=>({...prev,[e.target.name]:e.target.value}))
     }
@@ -35,7 +38,7 @@ const Register = () => {
                 form.reset()
                 console.log("user registered")
             }else{
-                console.log("Something went wrong.")
+                const errorData = await res.json()
                 setError(errorData.message)
                 setPending(false)
             }
