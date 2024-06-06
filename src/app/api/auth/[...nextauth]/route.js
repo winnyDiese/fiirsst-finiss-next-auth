@@ -9,9 +9,12 @@ async function login(credentials){
         const user = await User.findOne({email:credentials.email})
         if(!user) throw new Error("Wrong Credentials")
 
-        const isCorrect = await bcrypt.compare(credentails.password, user.password)
+        const isCorrect = await bcrypt.compare(credentials.password, user.password)
+        if(!isCorrect) throw new Error("Wrong Credentials")
+        return user
     } catch (error) {
-        
+        console.log("Error while logging in")
+        throw new Error('Something went')
     }
 }
 
