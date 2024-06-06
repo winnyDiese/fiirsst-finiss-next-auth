@@ -36,6 +36,7 @@ const Register = () => {
                 setPending(false)
                 const form = e.target
                 form.reset()
+                router.push('/login')
                 console.log("user registered")
             }else{
                 const errorData = await res.json()
@@ -49,9 +50,6 @@ const Register = () => {
         }
     }
 
-    // console.log({info.password})
-    console.log({info})
-    console.log(info.username)
 
     return (
         <div className='p-6'>
